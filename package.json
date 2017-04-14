@@ -1,14 +1,11 @@
 {
-  "name": "TelPush",
+  "name": "KasperChat",
   "version": "1.0.0",
-  "description": "TelPush",
+  "description": "KasperChat",
   "main": "src/js/index.js",
   "author": {
     "name": "Kasper Gustavii",
     "email": "kasper.gustavii@live.se"
-  },
-  "scripts": {
-    "build": "gulp build"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
@@ -16,7 +13,6 @@
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.16.0",
     "babelify": "^7.2.0",
-    "bootstrap": "4.0.0-alpha.6",
     "browserify": "^12.0.1",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-react": "^6.8.0",
@@ -28,23 +24,8 @@
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^2.5.0",
     "gulp-webserver": "0.9.1",
-    "phonegap-plugin-push": "v1.10.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "underscore": "^1.8.3",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "dependencies": {
-    "gulp-install": "^0.6.0",
-    "jquery": "^1.9.1",
-    "uuid": "^2.0.1"
-  },
-  "cordovaPlugins": [
-    {
-      "variables": {
-        "SENDER_ID": "XXXXXXX"
-      },
-      "locator": "phonegap-plugin-push"
-    }
-  ]
+  }
 }

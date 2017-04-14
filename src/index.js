@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppComponent from './components/App';
+import AppContainer from './components/AppContainer';
 
-const hej = 'ASdGsdFs';
+// Init users
+
+
 ReactDOM.render(
-  <AppComponent></AppComponent>,
+  <AppContainer></AppContainer>,
   document.getElementById('body')
 );

@@ -2,18 +2,40 @@
   border: 2px black solid;
 }
 
-.red {
+.chat-messages {
+  padding: 3px;
   border: 2px red solid;
+  max-height: 70%;
+  overflow-y: scroll;
+  overflow-y: auto;
 }
 
-.blue {
+.chat-input {
   border: 2px blue solid;
+  padding: 3px;
 }
 
-.yellow {
-  border: 2px yellow solid;
-}
-
-.green {
+.friends-list {
   border: 2px green solid;
+  padding: 3px
+}
+
+.online-color {
+  color: green;
+}
+
+.in-game-color {
+  color: blue;
+}
+
+.offline-color {
+  color: grey;
+}
+
+.message {
+  padding: 3px
+}
+
+.friend {
+  border: 2px yellow solid;
 }

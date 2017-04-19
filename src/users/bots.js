@@ -10,11 +10,11 @@ class Bot {
 
 export function createBots(){
   const bots = [];
-  users.push(new Bot('Kasper1', 'ONLINE'));
-  users.push(new Bot('Kasper2', 'ONLINE'));
-  users.push(new Bot('Kasper3', 'OFFLINE'));
-  users.push(new Bot('Kasper4', 'OFFLINE'));
-  users.push(new Bot('Kasper5', 'IN_GAME'));
+  bots.push(new Bot('Kasper1', 'ONLINE'));
+  bots.push(new Bot('Kasper2', 'ONLINE'));
+  bots.push(new Bot('Kasper3', 'OFFLINE'));
+  bots.push(new Bot('Kasper4', 'OFFLINE'));
+  bots.push(new Bot('Kasper5', 'IN_GAME'));
 
   return bots;
 }

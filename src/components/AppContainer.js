@@ -3,7 +3,7 @@ import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import FriendsList from './FriendsList';
 import * as bots from './../users/bots';
-import * as user from './../users/user';
+import * as user from '../../veryFakeServer/user';
 import * as core from './../core';
 
 class AppContainer extends React.Component {
@@ -27,10 +27,7 @@ class AppContainer extends React.Component {
         }, 1000);
     }
 
-
-
     componentDidUpdate() {
-
         const that = this;
 
         function randomInterval() {
@@ -49,6 +46,7 @@ class AppContainer extends React.Component {
 
     handleNewUserMessage(newMessage) {
         const that = this;
+        // Send message to server!
         that.setState((prevState) => ({
             chatMessages: prevState.chatMessages.concat({message: newMessage, user: {name: that.state.user.name}})
         }));

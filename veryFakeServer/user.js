@@ -6,5 +6,5 @@ class User {
 }
 
 export function createUser() {
-    return new User('YAYAYAYAYA', 'ONLINE');
+    return new User('Kkeff', 'ONLINE');
 }

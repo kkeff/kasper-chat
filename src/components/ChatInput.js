@@ -23,6 +23,7 @@ export default class ChatInput extends React.Component {
 
     render() {
         const that = this;
+        // TODO Cannot send empty messsage
         return (
             <form className="chat-input" onSubmit={that.handleSubmit}>
                 <label><strong>{that.props.user}: </strong></label>

@@ -42,6 +42,6 @@ gulp.task('js:bundle', function () {
 
 gulp.task('watch', function () {
     livereload.listen();
-    gulp.watch('src/**/*.js', ['js:bundle', 'lint']);
+    gulp.watch(['src/**/*.js', 'veryFakeServer/**/*.js'], ['js:bundle', 'lint']);
     gulp.watch('dist/**').on('change', livereload.changed);
 });

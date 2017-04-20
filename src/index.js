@@ -1,24 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppContainer from './components/AppContainer';
-import server from '../veryFakeServer';
+import serverMaker from '../veryFakeServer/server';
 // Init users
 // Listen to change!
 //
 
-let friends = server.getInitialFriends();
-let messages = server.getInitalMessages();
-let user = server.getInitalUser();
+const server = serverMaker();
+
+let friends = server.getFriends();
+let messages = server.getMessages();
+let user = server.getUser();
 
 renderView(friends, server, user);
-
-function listenToNewMessagesFromServer (messages) {
-    messages = messages;
-}
 
 function renderView () {
     ReactDOM.render(
         <AppContainer friends={friends} messages={messages} user={user}></AppContainer>,
         document.getElementById('body')
     );
+}
+
+export function listenToNewMessagesFromServer (newMessages) {
+    messages = newMessages;
+    renderView();
 }

@@ -9,8 +9,10 @@
   ],
   "env": {
     "browser": true,
-    "es6": true,
-    "jquery": true
+    "es6": true
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "rules": {
+    "react/prop-types": 0
+  }
 }

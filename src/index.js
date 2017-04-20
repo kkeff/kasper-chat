@@ -6,6 +6,6 @@ import AppContainer from './components/AppContainer';
 
 
 ReactDOM.render(
-  <AppContainer></AppContainer>,
-  document.getElementById('body')
+    <AppContainer></AppContainer>,
+    document.getElementById('body')
 );

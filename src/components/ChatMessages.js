@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class ChatMessages extends React.Component {
 
@@ -43,3 +44,6 @@ export default class ChatMessages extends React.Component {
       );
     }
 }
+ChatMessages.propTypes = {
+    chatMessages: PropTypes.array
+};

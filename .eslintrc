@@ -11,8 +11,5 @@
     "browser": true,
     "es6": true
   },
-  "parser": "babel-eslint",
-  "rules": {
-    "react/prop-types": 0
-  }
+  "parser": "babel-eslint"
 }

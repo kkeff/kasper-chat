@@ -1,41 +1,67 @@
 .black {
-  border: 2px black solid;
+    border: 2px black solid;
 }
 
 .chat-messages {
-  padding: 3px;
-  border: 2px red solid;
-  max-height: 70%;
-  overflow-y: scroll;
-  overflow-y: auto;
+    padding: 3px;
+    border: 2px red solid;
+    min-height: 50vh;
+    max-height: 70vh;
+    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .chat-input {
-  border: 2px blue solid;
-  padding: 3px;
+    border: 2px blue solid;
+    padding: 3px;
 }
 
 .friends-list {
-  border: 2px green solid;
-  padding: 3px
+    border: 2px green solid;
+    padding: 7px;
 }
 
 .online-color {
-  color: green;
+    color: green;
 }
 
 .in-game-color {
-  color: blue;
+    color: blue;
 }
 
 .offline-color {
-  color: grey;
+    color: grey;
 }
 
 .message {
-  padding: 3px
+    padding: 3px
 }
 
-.friend {
-  border: 2px yellow solid;
+.friend-container {
+    width: 100%;
+    border: 2px yellow solid;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.friend-avatar-container {
+    /*display: flex;*/
+    /*justify-content: center;*/
+    float: left;
+    margin-right: 3px;
+}
+
+.friend-information-container {
+    overflow: hidden;
+    background: #ccc
+}
+
+.friend-information {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 3px;
 }

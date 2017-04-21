@@ -12,7 +12,7 @@ class AppContainer extends React.Component {
           chatMessages: [],
           friends: userUtil.createInitialFriends(),
           user: userUtil.createInitalUser()
-        }
+        },
         this.handleNewUserMessage = this.handleNewUserMessage.bind(this);
         this.setNewMessage = this.setNewMessage.bind(this);
     }

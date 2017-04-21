@@ -38,7 +38,6 @@
 }
 
 .friend-container {
-    width: 100%;
     border: 2px yellow solid;
     border-radius: 30px;
     margin-bottom: 10px;
@@ -46,22 +45,22 @@
     padding-bottom: 5px;
 }
 
-.friend-avatar-container {
-    /*display: flex;*/
-    /*justify-content: center;*/
-    float: left;
-    margin-right: 3px;
-}
-
-.friend-information-container {
-    overflow: hidden;
-    background: #ccc
+.friend-avatar {
+    padding-right: 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .friend-information {
+    padding-left: 0px !important;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-right: 3px;
+}
+
+.status-circle {
+    cursor: pointer;
 }

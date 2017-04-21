@@ -3,3 +3,4 @@ Fixa hela userobject in i chattmeddelande - Det är därför det är viktigt att
 Kanske ta in hela state i vissa metoder?
 Visa time to next function
 Visa knappar för att logga in/ut och spela
+Add userId to users

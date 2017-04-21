@@ -6,27 +6,27 @@ export default class FriendsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newStatus: null,
-            showAlternativesForFriend: []
+            showAlternatives: []
         };
-        this.handleFriendStatusClick = this.handleFriendStatusClick.bind(this);
+        this.handleToggleStatusAlternatives = this.handleToggleStatusAlternatives.bind(this);
     }
 
-    handleFriendStatusClick(event, friend) {
-
+    handleToggleStatusAlternatives(event, friend) {
         event.preventDefault();
-
-        console.log('THA CLAKICK');
-        console.log(friend);
-        console.log(two);
+        const newShowAlternatives = this.state.showAlternatives;
+        const index = newShowAlternatives.indexOf(friend.name);
+        index > -1 ? newShowAlternatives.splice(index, 1) : newShowAlternatives.push(friend.name);
+        this.setState((prevState) => ({
+            showAlternatives: newShowAlternatives
+        }));
     }
 
     render() {
         const that = this;
 
-        function getCircleElement (friend) {
+        function getCircleElement(friend) {
             let circleColor;
-            switch (friend.status){
+            switch (friend.status) {
                 case 'ONLINE':
                     circleColor = 'green';
                     break;
@@ -38,22 +38,47 @@ export default class FriendsList extends React.Component {
             }
             return (
                 <svg height="40" width="40">
-                    <circle onClick={(event) => that.handleFriendStatusClick(event, friend)} cx="20" cy="20" r="10" stroke={circleColor}  strokeWidth="5" fillOpacity="0"/>
+                    <circle onClick={(event) => that.handleToggleStatusAlternatives(event, friend)}
+                            className="status-circle"
+                            cx="20"
+                            cy="20"
+                            r="10"
+                            stroke={circleColor}
+                            strokeWidth="5"
+                            fillOpacity="0"/>
                 </svg>
             );
         }
 
-        function getFriendElement(friend, i) {
+        function getStatusAlternativeElement() {
             return (
-                <div className="friend-container" key={i}>
-                    <span className="friend-avatar-container">
-                        {getCircleElement(friend)}
-                        <img src="dist/img/happy-poop-smiley.jpg" width="42" height="42"/>
-                    </span>
-                    <div className="friend-information">
-                        <div>{friend.name}</div>
-                        <div>{core.getStatusText(friend.status)}</div>
+                <div className="row">
+                    <div className="col-12">
+                        <button>ASDF</button>
                     </div>
+                </div>
+            );
+        }
+
+        function getFriendElement(friend, i) {
+            const shouldShowAlternatives = that.state.showAlternatives.some((sa) => sa === friend.name);
+            const statusAlternativesElement = shouldShowAlternatives ?
+                getStatusAlternativeElement(friend.status) :
+                null;
+
+            return (
+                <div className="friend-container container" key={i}>
+                    <div className="row">
+                        <div className="friend-avatar col-7">
+                            {getCircleElement(friend)}
+                            <img src="dist/img/happy-poop-smiley.jpg" width="42" height="42"/>
+                        </div>
+                        <div className="friend-information col-5">
+                            <div>{friend.name}</div>
+                            <div>{core.getStatusText(friend.status)}</div>
+                        </div>
+                    </div>
+                    {statusAlternativesElement}
                 </div>
             );
         }

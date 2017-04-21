@@ -12,6 +12,7 @@ export default class ChatInput extends React.Component {
 
     handleChange(event) {
         this.setState({newMessage: event.target.value});
+        event.preventDefault();
     }
 
     handleSubmit(event) {

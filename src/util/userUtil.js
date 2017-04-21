@@ -19,3 +19,13 @@ export function createInitialFriends () {
 
   return friends;
 }
+
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(() => { that.setNewMessage }, 3000);
+}
+
+function myStopFunction() {
+    clearTimeout(myVar);
+}

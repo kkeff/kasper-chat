@@ -1,0 +1,3 @@
+Lägg till prototypskit på allt
+Fixa hela userobject in i chattmeddelande - Det är därför det är viktigt att bara köra en metod för att skapa chatMessage!!!
+Kanske ta in hela state i vissa metoder?

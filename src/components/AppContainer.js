@@ -2,27 +2,37 @@ import React from 'react';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import FriendsList from './FriendsList';
-import serverMaker from '../../veryFakeServer/server'
-
-const server = serverMaker();
+import * as userUtil from '../util/userUtil'
+import * as core from '../core'
 
 class AppContainer extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+          chatMessages: [],
+          friends: userUtil.createInitialFriends(),
+          user: userUtil.createInitalUser()
+        }
         this.handleNewUserMessage = this.handleNewUserMessage.bind(this);
+        this.setNewMessage = this.setNewMessage.bind(this);
     }
 
 
-    handleNewUserMessage(newMessage) {
+    handleNewUserMessage(message) {
         const that = this;
-        server.updateNewMessage(that.props.user, newMessage);
-        // Send message to server!
-        // Add message to state directly
-        // When new message has been activated - then ignore message from own user!
-        // that.setState((prevState) => ({
-        //    chatMessages: prevState.chatMessages.concat({message: newMessage, user: {name: that.state.user.name}})
-        // }));
+        that.setNewMessage(core.createChatMessage(message, that.state.user));
+        if(core.messageContainsActiveUserName(that.state.friends, message)){
+          const conversationChatMessage = core.createConversationChatMessage(that.state.friends, message, that.state.user.name);
+          setTimeout(() => { that.setNewMessage(conversationChatMessage) }, 2000);
+        }
+
+    }
+
+    setNewMessage(newMessage){
+      const that = this;
+      that.setState((prevState) => ({
+        chatMessages: prevState.chatMessages.concat(newMessage)
+      }));
     }
 
     render() {
@@ -31,11 +41,11 @@ class AppContainer extends React.Component {
             <div className="container black">
                 <div className="row">
                     <div className="col-8">
-                        <ChatMessages chatMessages={that.props.messages}></ChatMessages>
-                        <ChatInput user={that.props.user.name} onNewUserMessage={that.handleNewUserMessage}></ChatInput>
+                        <ChatMessages chatMessages={that.state.chatMessages}></ChatMessages>
+                        <ChatInput user={that.state.user.name} onNewUserMessage={that.handleNewUserMessage}></ChatInput>
                     </div>
                     <div className="col-4">
-                        <FriendsList friends={that.props.friends}></FriendsList>
+                        <FriendsList friends={that.state.friends}></FriendsList>
                     </div>
                 </div>
             </div>

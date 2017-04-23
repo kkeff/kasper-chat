@@ -21,6 +21,13 @@ export default class FriendsList extends React.Component {
         }));
     }
 
+    handleNewStatus(friend, newStatus) {
+
+        this.setState((prevState) => ({
+            showAlternatives: newShowAlternatives
+        }));
+    }
+
     render() {
         const that = this;
 
@@ -50,11 +57,30 @@ export default class FriendsList extends React.Component {
             );
         }
 
-        function getStatusAlternativeElement() {
+        function getStatusAlternativeElement(friend) {
+            /*
+             function handleNewStatus (event){
+             event.preventDefault();
+             that.props
+             }
+             */
+            const statusInGameButton = (<button onClick={(event) => that.props.handleNewStatus(friend, 'IN_GAME')}>Go in game</button>);
+            const statusOnlineButton = (<button onClick={(event) => that.props.handleNewStatus(friend, 'ONLINE')}>Go online</button>);
+            const statusOfflineButton = (<button onClick={(event) => that.props.handleNewStatus(friend, 'OFLLINE')}>Go offline</button>);
+
+            let buttons;
+            if (friend.status === 'ONLINE') {
+                buttons = (<div>{statusInGameButton}{statusOfflineButton}</div>)
+            } else if (friend.status === 'IN_GAME'){
+                buttons = (<div>{statusOnlineButton}{statusOfflineButton}</div>)
+            } else {
+                buttons = (<div>{statusInGameButton}{statusOnlineButton}</div>)
+            }
+
             return (
                 <div className="row">
-                    <div className="col-12">
-                        <button>ASDF</button>
+                    <div className="col-12 status-alternatives">
+                        {buttons}
                     </div>
                 </div>
             );
@@ -63,7 +89,7 @@ export default class FriendsList extends React.Component {
         function getFriendElement(friend, i) {
             const shouldShowAlternatives = that.state.showAlternatives.some((sa) => sa === friend.name);
             const statusAlternativesElement = shouldShowAlternatives ?
-                getStatusAlternativeElement(friend.status) :
+                getStatusAlternativeElement(friend) :
                 null;
 
             return (

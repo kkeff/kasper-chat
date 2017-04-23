@@ -32,11 +32,12 @@ export function createChatMessage(message, user) {
 export function sortFriends(friends) {
     const sortedFriends = [];
 
-    function addIfStatus(friend, status){
-        if (friend.status === status){
+    function addIfStatus(friend, status) {
+        if (friend.status === status) {
             sortedFriends.push(friend);
         }
     }
+
     friends.forEach((friend) => addIfStatus(friend, 'IN_GAME'));
     friends.forEach((friend) => addIfStatus(friend, 'ONLINE'));
     friends.forEach((friend) => addIfStatus(friend, 'OFFLINE'));
@@ -44,8 +45,8 @@ export function sortFriends(friends) {
     return sortedFriends;
 }
 
-export function getStatusText(status){
-    if(status === 'ONLINE') {
+export function getStatusText(status) {
+    if (status === 'ONLINE') {
         return 'Online';
     } else if (status === 'IN_GAME') {
         return 'In game';

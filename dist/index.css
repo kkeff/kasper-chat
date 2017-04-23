@@ -64,3 +64,8 @@
 .status-circle {
     cursor: pointer;
 }
+
+.status-alternatives {
+    display: flex;
+    align-items: center;
+}

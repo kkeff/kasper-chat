@@ -17,7 +17,6 @@ class AppContainer extends React.Component {
         this.setNewMessage = this.setNewMessage.bind(this);
     }
 
-
     handleNewUserMessage(message) {
         const that = this;
         that.setNewMessage(core.createChatMessage(message, that.state.user));
@@ -25,7 +24,15 @@ class AppContainer extends React.Component {
           const conversationChatMessage = core.createConversationChatMessage(that.state.friends, message, that.state.user.name);
           setTimeout(() => { that.setNewMessage(conversationChatMessage) }, 2000);
         }
+    }
 
+    handleNewStatus(friend, status) {
+        const that = this;
+        that.setNewMessage(core.createChatMessage(message, that.state.user));
+        if(core.messageContainsActiveUserName(that.state.friends, message)){
+          const conversationChatMessage = core.createConversationChatMessage(that.state.friends, message, that.state.user.name);
+          setTimeout(() => { that.setNewMessage(conversationChatMessage) }, 2000);
+        }
     }
 
     setNewMessage(newMessage){
@@ -45,7 +52,7 @@ class AppContainer extends React.Component {
                         <ChatInput user={that.state.user.name} onNewUserMessage={that.handleNewUserMessage}></ChatInput>
                     </div>
                     <div className="col-4">
-                        <FriendsList friends={that.state.friends}></FriendsList>
+                        <FriendsList friends={that.state.friends} onNewStatus={that.handleNewUserStatus}></FriendsList>
                     </div>
                 </div>
             </div>

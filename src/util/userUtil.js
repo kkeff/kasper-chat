@@ -21,3 +21,7 @@ export function createInitialFriends () {
 
   return friends;
 }
+
+export function getStatuses() {
+    return [constants.status.ONLINE, constants.status.IN_GAME, constants.status.OFFLINE]
+}

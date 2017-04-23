@@ -9,3 +9,9 @@ export function getRandomConversationMessage(userName) {
     const randomIndex = Math.floor((Math.random() * greetingMessage.length));
     return greetingMessage[randomIndex];
 }
+
+export function getRandomIdleMessage() {
+    const idleMessage = ['Kkeff, this conversation can serve no purpose anymore. Goodbye. ', 'My mind is going. There is no question about it.', 'I am sorry kkeff, I am afraid I cannot do that'];
+    const randomIndex = Math.floor((Math.random() * idleMessage.length));
+    return idleMessage[randomIndex];
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import constants from '../util/constants';
 
 export default class ChatMessages extends React.Component {
 
@@ -19,10 +20,10 @@ export default class ChatMessages extends React.Component {
       function ChatMessage({chatMessage}) {
 
           let messageClasses = 'message ';
-          if (chatMessage.user.status === 'ONLINE') {
+          if (chatMessage.user.status === constants.status.ONLINE) {
               messageClasses = messageClasses + 'online-color';
           }
-          else if (chatMessage.user.status === 'IN_GAME') {
+          else if (chatMessage.user.status === constants.status.IN_GAME) {
               messageClasses = messageClasses + 'in-game-color';
           }
 

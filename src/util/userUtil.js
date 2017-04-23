@@ -1,3 +1,5 @@
+import constants from './constants';
+
 class User {
     constructor(name, status) {
         this.name = name;
@@ -6,26 +8,16 @@ class User {
 }
 
 export function createInitalUser () {
-  return new User('kkeff', 'ONLINE');
+  return new User('kkeff', constants.status.ONLINE);
 }
 
 export function createInitialFriends () {
   let friends = [];
-  friends.push(new User('Kasper', 'ONLINE'));
-  friends.push(new User('Victor', 'ONLINE'));
-  friends.push(new User('Anders', 'OFFLINE'));
-  friends.push(new User('Gustavii', 'OFFLINE'));
-  friends.push(new User('Bartholdi', 'IN_GAME'));
+  friends.push(new User('Kasper', constants.status.ONLINE));
+  friends.push(new User('Victor', constants.status.ONLINE));
+  friends.push(new User('Anders', constants.status.OFFLINE));
+  friends.push(new User('Gustavii', constants.status.OFFLINE));
+  friends.push(new User('Bartholdi', constants.status.IN_GAME));
 
   return friends;
-}
-
-var myVar;
-
-function myFunction() {
-    myVar = setTimeout(() => { that.setNewMessage }, 3000);
-}
-
-function myStopFunction() {
-    clearTimeout(myVar);
 }

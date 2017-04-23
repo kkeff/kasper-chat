@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as core from '../core';
+import constants from '../util/constants';
 
 export default class FriendsList extends React.Component {
     constructor(props) {
@@ -8,24 +9,27 @@ export default class FriendsList extends React.Component {
         this.state = {
             showAlternatives: []
         };
-        this.handleToggleStatusAlternatives = this.handleToggleStatusAlternatives.bind(this);
+        this.handleNewStatusClicked = this.handleNewStatusClicked.bind(this);
+        this.handleToggleStatusAlternativesClicked = this.handleToggleStatusAlternativesClicked.bind(this);
+        this.toggleStatusAlternatives = this.toggleStatusAlternatives.bind(this);
     }
 
-    handleToggleStatusAlternatives(event, friend) {
+    handleToggleStatusAlternativesClicked(event, friend) {
         event.preventDefault();
-        const newShowAlternatives = this.state.showAlternatives;
-        const index = newShowAlternatives.indexOf(friend.name);
-        index > -1 ? newShowAlternatives.splice(index, 1) : newShowAlternatives.push(friend.name);
-        this.setState((prevState) => ({
-            showAlternatives: newShowAlternatives
-        }));
+        this.toggleStatusAlternatives(friend);
     }
 
-    handleNewStatus(friend, newStatus) {
+    toggleStatusAlternatives (friend){
+      const newShowAlternatives = this.state.showAlternatives;
+      const index = newShowAlternatives.indexOf(friend.name);
+      index > -1 ? newShowAlternatives.splice(index, 1) : newShowAlternatives.push(friend.name);
+      this.setState({ showAlternatives: newShowAlternatives });
+    }
 
-        this.setState((prevState) => ({
-            showAlternatives: newShowAlternatives
-        }));
+    handleNewStatusClicked (event, friend, status) {
+      event.preventDefault();
+      this.props.onNewStatus(friend, status);
+      this.toggleStatusAlternatives(friend);
     }
 
     render() {
@@ -34,18 +38,19 @@ export default class FriendsList extends React.Component {
         function getCircleElement(friend) {
             let circleColor;
             switch (friend.status) {
-                case 'ONLINE':
+                case constants.status.ONLINE:
                     circleColor = 'green';
                     break;
-                case 'IN_GAME':
+                case constants.status.IN_GAME:
                     circleColor = 'blue';
                     break;
-                default:
+                case constants.status.OFFLINE:
                     circleColor = 'grey';
+                    break;
             }
             return (
                 <svg height="40" width="40">
-                    <circle onClick={(event) => that.handleToggleStatusAlternatives(event, friend)}
+                    <circle onClick={(event) => that.handleToggleStatusAlternativesClicked(event, friend)}
                             className="status-circle"
                             cx="20"
                             cy="20"
@@ -58,20 +63,14 @@ export default class FriendsList extends React.Component {
         }
 
         function getStatusAlternativeElement(friend) {
-            /*
-             function handleNewStatus (event){
-             event.preventDefault();
-             that.props
-             }
-             */
-            const statusInGameButton = (<button onClick={(event) => that.props.handleNewStatus(friend, 'IN_GAME')}>Go in game</button>);
-            const statusOnlineButton = (<button onClick={(event) => that.props.handleNewStatus(friend, 'ONLINE')}>Go online</button>);
-            const statusOfflineButton = (<button onClick={(event) => that.props.handleNewStatus(friend, 'OFLLINE')}>Go offline</button>);
+            const statusInGameButton = (<button onClick={(event) => that.handleNewStatusClicked(event, friend, constants.status.IN_GAME)}>Go in game</button>);
+            const statusOnlineButton = (<button onClick={(event) => that.handleNewStatusClicked(event, friend, constants.status.ONLINE)}>Go online</button>);
+            const statusOfflineButton = (<button onClick={(event) => that.handleNewStatusClicked(event, friend, constants.status.OFFLINE)}>Go offline</button>);
 
             let buttons;
-            if (friend.status === 'ONLINE') {
+            if (friend.status === constants.status.ONLINE) {
                 buttons = (<div>{statusInGameButton}{statusOfflineButton}</div>)
-            } else if (friend.status === 'IN_GAME'){
+            } else if (friend.status === constants.status.IN_GAME){
                 buttons = (<div>{statusOnlineButton}{statusOfflineButton}</div>)
             } else {
                 buttons = (<div>{statusInGameButton}{statusOnlineButton}</div>)
@@ -120,5 +119,6 @@ export default class FriendsList extends React.Component {
     }
 }
 FriendsList.propTypes = {
-    friends: PropTypes.array
+    friends: PropTypes.array,
+    onNewStatus: PropTypes.func.isRequired
 };

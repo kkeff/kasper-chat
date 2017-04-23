@@ -4,5 +4,5 @@ import AppContainer from './components/AppContainer';
 
 ReactDOM.render(
     <AppContainer></AppContainer>,
-    document.getElementById('body')
+    document.getElementById('main')
 );

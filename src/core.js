@@ -15,7 +15,6 @@ function isUserActive(friend) {
   return friend.status === constants.status.ONLINE || friend.status === constants.status.IN_GAME;
 }
 
-
 export function createConversationChatMessage(friends, message, userName) {
   const fromUser = friends.find((friend) => isNameInMessage(friend, message));
   const newMessage = messageUtil.getRandomConversationMessage(userName);

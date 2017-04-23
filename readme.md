@@ -1,4 +1,11 @@
-### Readme
+#### Readme
+
+### To run
+npm install
+gulp dev
+
+###
+Information
 
 The bots will chat after 17.5 sec if no one has spoken in that time.
 
@@ -16,6 +23,3 @@ The bots will respond if you write their name, if they are online/in game.
 
 The bots where inspired by 2001 - A space odyssey.
 
-## To run
-npm install
-gulp dev

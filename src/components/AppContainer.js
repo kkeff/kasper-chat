@@ -3,7 +3,7 @@ import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import FriendsList from './FriendsList';
 import * as userUtil from '../util/userUtil';
-import * as core from '../core';
+import * as messageUtil from '../util/messageUtil';
 
 class AppContainer extends React.Component {
 
@@ -22,41 +22,37 @@ class AppContainer extends React.Component {
 
   componentDidMount() {
     const that = this;
-    that._randomMessageTimer = setTimeout(() => that.setNewMessage(core.createGreetingChatMessage(that.state.friends, that.state.user)), 1250);
-    that._randomStatusTimer = setTimeout(() => that.setNewFriends(core.getNewFriendsWithNewStatus(this.state.friends)), 20000);
+    that._randomMessageTimer = setTimeout(() => that.setNewMessage(messageUtil.createGreetingChatMessage(that.state.friends, that.state.user)), 1250);
+    that._randomStatusTimer = setTimeout(() => that.setNewFriends(userUtil.getNewFriendsWithNewStatus(this.state.friends)), 20000);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const that = this;
-    if (core.shouldClearRandomMessageTimer(prevState.chatMessages, that.state.chatMessages)) {
+    if (messageUtil.hasNewMessageBeenAdded(prevState.chatMessages, that.state.chatMessages)) {
       clearTimeout(this._randomMessageTimer);
-      this._randomMessageTimer = setTimeout(() => that.setNewMessage(core.createIdleChatMessage(that.state.friends)), 17500);
-    } else if (core.shouldClearRandomStatusChange(prevState.friends, that.state.friends)){
+      this._randomMessageTimer = setTimeout(() => that.setNewMessage(messageUtil.createIdleChatMessage(that.state.friends)), 17500);
+    } else if (userUtil.hasFriendStatusChanged(prevState.friends, that.state.friends)){
       clearTimeout(this._randomStatusTimer);
-      that._randomStatusTimer = setTimeout(() => that.setNewFriends(core.getNewFriendsWithNewStatus(this.state.friends)), 20000);
+      that._randomStatusTimer = setTimeout(() => that.setNewFriends(userUtil.getNewFriendsWithNewStatus(this.state.friends)), 20000);
     }
   }
 
   handleNewUserMessage(message) {
     const that = this;
-    that.setNewMessage(core.createChatMessage(message, that.state.user));
-    if (core.messageContainsActiveUserName(that.state.friends, message)) {
-      const conversationChatMessage = core.createConversationChatMessage(that.state.friends, message, that.state.user.name);
-      setTimeout(() => {
-        that.setNewMessage(conversationChatMessage)
-      }, 1250);
+    that.setNewMessage(messageUtil.createChatMessage(message, that.state.user));
+    if (messageUtil.messageContainsActiveUserName(that.state.friends, message)) {
+      const conversationChatMessage = messageUtil.createConversationChatMessage(that.state.friends, message, that.state.user.name);
+      setTimeout(() => that.setNewMessage(conversationChatMessage), 1250);
     }
   }
 
   handleNewStatus(friend, newStatus) {
     const that = this;
-    if (core.shouldSendGreetingMessage(friend, that.state.friends)) {
-      const greetingChatMessage = core.createGreetingChatMessage(that.state.friends, friend);
-      setTimeout(() => {
-        that.setNewMessage(greetingChatMessage)
-      }, 2000);
+    if (messageUtil.shouldSendGreetingMessage(friend, that.state.friends)) {
+      const greetingChatMessage = messageUtil.createGreetingChatMessage(that.state.friends, friend);
+      setTimeout(() => that.setNewMessage(greetingChatMessage), 1500);
     }
-    const newFriends = core.getFriendsWithNewStatus(friend, newStatus, that.state.friends);
+    const newFriends = userUtil.getFriendsWithNewStatus(friend, newStatus, that.state.friends);
     that.setNewFriends(newFriends);
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as core from '../core';
+import * as userUtil from '../util/userUtil';
 import constants from '../util/constants';
 
 export default class FriendsList extends React.Component {
@@ -78,14 +78,7 @@ export default class FriendsList extends React.Component {
         getStatusAlternativeElement(friend) :
         null;
 
-      let poopSmileySrc;
-      if (friend.status === constants.status.ONLINE) {
-        poopSmileySrc = 'dist/img/frowning-poop-smiley.png';
-      } else if (friend.status === constants.status.IN_GAME){
-        poopSmileySrc = 'dist/img/happy-poop-smiley.jpg';
-      } else {
-        poopSmileySrc = 'dist/img/sad-poop-smiley.jpg';
-      }
+      const poopSmileySrc = userUtil.getPoopSmileySrc(friend.status);
 
       return (
         <div className="friend-container container" key={i} onClick={(event) => that.handleToggleStatusAlternativesClicked(event, friend)}>
@@ -96,7 +89,7 @@ export default class FriendsList extends React.Component {
             </div>
             <div className="friend-information col-5">
               <div>{friend.name}</div>
-              <div>{core.getStatusText(friend.status)}</div>
+              <div>{userUtil.getStatusText(friend.status)}</div>
             </div>
           </div>
           {statusAlternativesElement}
@@ -104,7 +97,7 @@ export default class FriendsList extends React.Component {
       );
     }
 
-    const sortedFriends = core.sortFriends(that.props.friends);
+    const sortedFriends = userUtil.sortFriends(that.props.friends);
     const friendElements = sortedFriends.map(getFriendElement);
 
     return (

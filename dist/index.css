@@ -1,71 +1,80 @@
 .black {
-    border: 2px black solid;
+  border-radius: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #8cb3d9;
 }
 
 .chat-messages {
-    padding: 3px;
-    border: 2px red solid;
-    min-height: 50vh;
-    max-height: 70vh;
-    overflow-y: scroll;
-    overflow-y: auto;
+  border-radius: 5px;
+  padding: 3px;
+  min-height: 50vh;
+  max-height: 70vh;
+  overflow-y: scroll;
+  overflow-y: auto;
+  background-color: white;
+  margin-bottom: 10px;
 }
 
 .chat-input {
-    border: 2px blue solid;
-    padding: 3px;
+  border-radius: 5px;
+  background-color: #2d5986;
+  padding: 7px 4px;
+  color: white;
 }
 
 .friends-list {
-    border: 2px green solid;
-    padding: 7px;
+  border-radius: 20px;
+  padding-top: 11px;
+  padding-right: 7px;
+  padding-bottom: 1px;
+  padding-left: 7px;
+  background-color: #2d5986;
 }
 
 .online-color {
-    color: green;
+  color: green;
 }
 
 .in-game-color {
-    color: blue;
+  color: blue;
 }
 
 .offline-color {
-    color: grey;
+  color: grey;
 }
 
 .message {
-    padding: 3px
+  padding: 3px
 }
 
 .friend-container {
-    border: 2px yellow solid;
-    border-radius: 30px;
-    margin-bottom: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  background-color: white;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
 }
 
 .friend-avatar {
-    padding-right: 0px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+  padding-right: 0px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .friend-information {
-    padding-left: 0px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.status-circle {
-    cursor: pointer;
+  padding-left: 0px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .status-alternatives {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

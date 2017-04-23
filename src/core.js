@@ -3,29 +3,29 @@ import * as userUtil from './util/userUtil';
 import constants from './util/constants';
 
 function getRandomUser(friends) {
-    const randomFriendIndex = Math.floor((Math.random() * friends.length));
-    return friends[randomFriendIndex];
+  const randomFriendIndex = Math.floor((Math.random() * friends.length));
+  return friends[randomFriendIndex];
 }
 
 function isNameInMessage(friend, message) {
-    return (new RegExp(friend.name, 'i')).test(message);
+  return (new RegExp(friend.name, 'i')).test(message);
 }
 
 function isUserActive(friend) {
-    return friend.status === constants.status.ONLINE || friend.status === constants.status.IN_GAME;
+  return friend.status === constants.status.ONLINE || friend.status === constants.status.IN_GAME;
 }
 
 
 export function createConversationChatMessage(friends, message, userName) {
-    const fromUser = friends.find((friend) => isNameInMessage(friend, message));
-    const newMessage = messageUtil.getRandomConversationMessage(userName);
-    return createChatMessage(newMessage, fromUser);
+  const fromUser = friends.find((friend) => isNameInMessage(friend, message));
+  const newMessage = messageUtil.getRandomConversationMessage(userName);
+  return createChatMessage(newMessage, fromUser);
 }
 
 export function createIdleChatMessage(friends){
-    const activeFriends = friends.filter(isUserActive);
-    const randomFriend = getRandomUser(activeFriends);
-    return createChatMessage(messageUtil.getRandomIdleMessage(), randomFriend);
+  const activeFriends = friends.filter(isUserActive);
+  const randomFriend = getRandomUser(activeFriends);
+  return createChatMessage(messageUtil.getRandomIdleMessage(), randomFriend);
 }
 
 function getOtherActiveUsers (friends, friend) {
@@ -50,48 +50,48 @@ export function createGreetingChatMessage(friends, user) {
 }
 
 export function messageContainsActiveUserName(friends, message) {
-    const activeFriends = friends.filter(isUserActive);
-    return activeFriends.some((friend) => isNameInMessage(friend, message));
+  const activeFriends = friends.filter(isUserActive);
+  return activeFriends.some((friend) => isNameInMessage(friend, message));
 }
 
 export function createChatMessage(message, user) {
-    const newUser = {
-      name: user.name,
-      status: user.status
-    };
-    return {message: message, user: newUser}
+  const newUser = {
+    name: user.name,
+    status: user.status
+  };
+  return {message: message, user: newUser}
 }
 
 export function sortFriends(friends) {
-    const sortedFriends = [];
+  const sortedFriends = [];
 
-    function addIfStatus(friend, status) {
-        if (friend.status === status) {
-            sortedFriends.push(friend);
-        }
+  function addIfStatus(friend, status) {
+    if (friend.status === status) {
+      sortedFriends.push(friend);
     }
+  }
 
-    friends.forEach((friend) => addIfStatus(friend, constants.status.IN_GAME));
-    friends.forEach((friend) => addIfStatus(friend, constants.status.ONLINE));
-    friends.forEach((friend) => addIfStatus(friend, constants.status.OFFLINE));
+  friends.forEach((friend) => addIfStatus(friend, constants.status.IN_GAME));
+  friends.forEach((friend) => addIfStatus(friend, constants.status.ONLINE));
+  friends.forEach((friend) => addIfStatus(friend, constants.status.OFFLINE));
 
-    return sortedFriends;
+  return sortedFriends;
 }
 
 export function getStatusText(status) {
-    if (status === constants.status.ONLINE) {
-        return 'Online';
-    } else if (status === constants.status.IN_GAME) {
-        return 'In game';
-    } else if (status === constants.status.OFFLINE) {
-        return 'Offline';
-    }
+  if (status === constants.status.ONLINE) {
+    return 'Online';
+  } else if (status === constants.status.IN_GAME) {
+    return 'In game';
+  } else if (status === constants.status.OFFLINE) {
+    return 'Offline';
+  }
 }
 
 export function getFriendsWithNewStatus (friend, status, friends){
   const newFriends = friends.map(function(f){
     if(f.name === friend.name){
-      f.status = status;
+      return {name: f.name, status: status};
     }
     return f;
   });
@@ -99,29 +99,33 @@ export function getFriendsWithNewStatus (friend, status, friends){
 }
 
 export function shouldClearRandomMessageTimer(prevChatMessages, chatMessages){
-    return chatMessages.length > prevChatMessages.length;
+  return chatMessages.length > prevChatMessages.length;
 }
 
 export function shouldClearRandomStatusChange(prevFriends, friends){
-    const hasFriendStatusChanged = prevFriends.some(function (pf){
-        return friends.some(function (f){
-            console.log(pf.name + f.name + pf.status + f.status);
-            return pf.name === f.name && pf.status !== f.status;
-        })
-    });
-    return hasFriendStatusChanged;
+  const hasFriendStatusChanged = prevFriends.some(function (pf){
+    return friends.some(function (f){
+      return pf.name === f.name && pf.status !== f.status;
+    })
+  });
+  return hasFriendStatusChanged;
 }
 
 function getNewRandomStatus (oldStatus){
-    const statuses = userUtil.getStatuses();
-    const index = statuses.indexOf(oldStatus);
-    statuses.splice(index, 1);
-    return statuses[Math.floor((Math.random() * statuses.length))];
+  const statuses = userUtil.getStatuses();
+  const index = statuses.indexOf(oldStatus);
+  statuses.splice(index, 1);
+  return statuses[Math.floor((Math.random() * statuses.length))];
 }
 
-export function setNewStatusOnRandomFriend(friends){
-    const randomUser = getRandomUser(friends);
-    randomUser.status = getNewRandomStatus(randomUser.status);
-
-    return friends;
+export function getNewFriendsWithNewStatus(friends){
+  let newFriends = [];
+  const randomUser = getRandomUser(friends);
+  friends.forEach((friend) => {
+    if(randomUser.name !== friend.name){
+      newFriends.push(friend);
+    }
+  });
+  newFriends.push({name: randomUser.name, status: getNewRandomStatus(randomUser.status)});
+  return newFriends;
 }

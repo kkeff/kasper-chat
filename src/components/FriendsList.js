@@ -27,7 +27,7 @@ export default class FriendsList extends React.Component {
     }
 
     handleNewStatusClicked (event, friend, status) {
-      event.preventDefault();
+      event.stopPropagation();
       this.props.onNewStatus(friend, status);
       this.toggleStatusAlternatives(friend);
     }
@@ -50,7 +50,7 @@ export default class FriendsList extends React.Component {
             }
             return (
                 <svg height="40" width="40">
-                    <circle onClick={(event) => that.handleToggleStatusAlternativesClicked(event, friend)}
+                    <circle
                             className="status-circle"
                             cx="20"
                             cy="20"
@@ -69,18 +69,16 @@ export default class FriendsList extends React.Component {
 
             let buttons;
             if (friend.status === constants.status.ONLINE) {
-                buttons = (<div>{statusInGameButton}{statusOfflineButton}</div>)
+                buttons = (<div className="col-12 status-alternatives">{statusInGameButton}{statusOfflineButton}</div>)
             } else if (friend.status === constants.status.IN_GAME){
-                buttons = (<div>{statusOnlineButton}{statusOfflineButton}</div>)
+                buttons = (<div className="col-12 status-alternatives">{statusOnlineButton}{statusOfflineButton}</div>)
             } else {
-                buttons = (<div>{statusInGameButton}{statusOnlineButton}</div>)
+                buttons = (<div className="col-12 status-alternatives">{statusInGameButton}{statusOnlineButton}</div>)
             }
 
             return (
-                <div className="row">
-                    <div className="col-12 status-alternatives">
-                        {buttons}
-                    </div>
+                <div className="row" >
+                  {buttons}
                 </div>
             );
         }
@@ -92,7 +90,7 @@ export default class FriendsList extends React.Component {
                 null;
 
             return (
-                <div className="friend-container container" key={i}>
+                <div className="friend-container container" key={i} onClick={(event) => that.handleToggleStatusAlternativesClicked(event, friend)}>
                     <div className="row">
                         <div className="friend-avatar col-7">
                             {getCircleElement(friend)}
